@@ -1,19 +1,17 @@
 from fastapi import APIRouter
-from pydantic import BaseModel
+from api.models import User, UserOut
+from api.controllers import UserControllers
 
 router = APIRouter(
     prefix="/users",
-    tags=["items"],
+    tags=["users"],
 )
 
-class User(BaseModel):
-    name: str
-    password: str
-    email: str
-
-@router.get("/", status_code=200)
+@router.get("/", status_code=200, response_model=list[UserOut])
 async def get_users():
-    return [
-        User(name="Fulano da Silva", password="****", email="fulanodasilva@email.com"),
-        User(name="Ciclano de Carvalho", password="****", email="cccarvalho@email.com"),
-    ]
+    return UserControllers.get()
+
+@router.post("/", status_code=201, response_model=UserOut)
+async def post_users(user: User):
+    response = UserControllers.create(user)
+    return response
