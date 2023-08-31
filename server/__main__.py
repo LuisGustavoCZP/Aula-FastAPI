@@ -1,5 +1,5 @@
 import uvicorn
-from configs import server_configs
+from api import server_configs
 
 port = server_configs["port"]
 

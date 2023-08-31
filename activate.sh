@@ -1,1 +1,0 @@
-& "c:/Users/Luis Gustavo Zanetti/Documents/GitHub/Python-API/.venv/Scripts/Activate.ps1"

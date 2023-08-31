@@ -1,12 +1,11 @@
-from api.models import User, UserOut
+from sqlalchemy.orm import Session
+from .. import models, schemas
 
-users = [
-]
+def select_users(session: Session, skip: int = 0, limit: int = 100) -> list[schemas.UserInternal]:
+    return session.query(models.User).offset(skip).limit(limit).all()
 
-def select_users():
-    return users
-
-def create_user(user: User):
-    users.append(user)
-    print(users)
-    return user
+def create_user(session: Session, user: schemas.UserCreate) -> schemas.UserInternal:
+    new_user = models.User(email=user.email, name=user.name, hashed_password=user.password)
+    session.add(new_user)
+    session.commit()
+    return new_user

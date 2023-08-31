@@ -1,11 +1,12 @@
-from pydantic import BaseModel
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
 
-class User(BaseModel):
-    name: str
-    password: str
-    email: str
+from ..clients import Base
 
+class User(Base):
+    __tablename__ = "users"
 
-class UserOut(BaseModel):
-    name: str
-    email: str
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True)
+    name = Column(String, unique=True)
+    hashed_password = Column(String)
