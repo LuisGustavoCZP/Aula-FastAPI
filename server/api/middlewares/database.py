@@ -16,3 +16,5 @@ class DBSessionMiddleware:
         finally:
             request.state.db.close()
         return response
+
+db_session_middleware = DBSessionMiddleware(some_attribute=None)
