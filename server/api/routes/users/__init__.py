@@ -13,7 +13,7 @@ router = APIRouter(
 def get_db(request: Request):
     return request.state.db
 
-@router.post("/login", status_code=200, response_model=bool)
+@router.post("/login", status_code=200, response_model=schemas.UserToken)
 async def post_users(user: schemas.UserLogin, session: Session = Depends(get_db)):
     response = controllers.users.check(session, user)
     return response
